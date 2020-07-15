@@ -23,8 +23,22 @@ export default class App extends Component {
       completed: false,
     };
 
-    this.setState((state) => ({
-      tasks: [...state.tasks, taskToAdd],
+    this.setState((prevState) => ({
+      tasks: [...prevState.tasks, taskToAdd],
+    }));
+  };
+
+  deleteTask = (id) => {
+    this.setState((prevState) => ({
+      tasks: prevState.tasks.filter((task) => task.id !== id),
+    }));
+  };
+
+  updateCompleted = (id) => {
+    this.setState((prevState) => ({
+      tasks: prevState.tasks.map((task) =>
+        task.id === id ? { ...task, completed: !task.completed } : task
+      ),
     }));
   };
 
@@ -33,7 +47,11 @@ export default class App extends Component {
     return (
       <>
         <AddForm onAddTask={this.addTask} />
-        <TodoList tasks={tasks} />
+        <TodoList
+          tasks={tasks}
+          onDeleteTask={this.deleteTask}
+          onUpateCompleted={this.updateCompleted}
+        />
       </>
     );
   }
