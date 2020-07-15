@@ -6,12 +6,25 @@ import TodoList from "./components/TodoList";
 
 export default class App extends Component {
   state = {
-    tasks: [
-      { id: 1, text: "hello", date: "23/11/1992", completed: false },
-      { id: 2, text: "world", date: "20/10/2003", completed: false },
-      { id: 3, text: "my", date: "21/12/2002", completed: false },
-    ],
+    tasks: [],
   };
+
+  componentDidMount() {
+    const persistedTasks = localStorage.getItem("tasks");
+
+    if (persistedTasks) {
+      const tasks = JSON.parse(persistedTasks);
+
+      this.setState({ tasks });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { tasks } = this.state;
+    if (prevState.tasks !== tasks) {
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+    }
+  }
 
   addTask = (task) => {
     const date = new Date();
