@@ -7,7 +7,13 @@ const TodoList = ({ tasks, onUpateCompleted, onDeleteTask }) => (
       {tasks &&
         tasks.map((task) => (
           <li key={task.id}>
-            <p>{task.text}</p>
+            <p
+              style={{
+                textDecoration: task.completed ? "line-through" : "none",
+              }}
+            >
+              {task.text}
+            </p>
             <p>{task.date}</p>
             <label>
               Completed:

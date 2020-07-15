@@ -8,6 +8,7 @@ export default class AddForm extends Component {
 
   state = {
     text: "",
+    showValidationError: false,
   };
 
   handleChange = (e) => {
@@ -17,15 +18,22 @@ export default class AddForm extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
 
-    this.props.onAddTask({ ...this.state });
+    const { text } = this.state;
 
-    this.setState({
-      text: "",
-    });
+    if (text.trim().length === 0) {
+      this.setState({ showValidationError: true });
+    } else {
+      this.props.onAddTask({ text });
+
+      this.setState({
+        text: "",
+        showValidationError: false,
+      });
+    }
   };
 
   render() {
-    const { text } = this.state;
+    const { text, showValidationError } = this.state;
 
     return (
       <div>
@@ -35,8 +43,14 @@ export default class AddForm extends Component {
             name="text"
             value={text}
             onChange={this.handleChange}
+            style={{
+              borderColor: showValidationError ? "red" : "blue",
+            }}
           />
           <button type="submit">Add Todo</button>
+          {showValidationError && (
+            <p style={{ color: "red" }}>Please, set a task!</p>
+          )}
         </form>
       </div>
     );
