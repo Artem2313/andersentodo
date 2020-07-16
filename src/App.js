@@ -4,14 +4,12 @@ import React, { Component } from "react";
 import AddForm from "./components/AddForm";
 import TodoList from "./components/TodoList";
 import TaskFilter from "./components/TaskFilter";
-import filterTasks from "./components/helpers/filterTasks";
 
 export default class App extends Component {
   state = {
     tasks: [],
     sortDirectionNameAsc: true,
     sortDirectionDateAsc: true,
-    filter: "",
     filtered: [],
   };
 
@@ -21,7 +19,7 @@ export default class App extends Component {
     if (persistedTasks) {
       const tasks = JSON.parse(persistedTasks);
 
-      this.setState({ tasks });
+      this.setState({ tasks, filtered: tasks });
     }
   }
 
@@ -29,18 +27,20 @@ export default class App extends Component {
     const { tasks } = this.state;
     if (prevState.tasks !== tasks) {
       localStorage.setItem("tasks", JSON.stringify(tasks));
+      this.setState({ filtered: tasks });
     }
   }
 
-  changeFilter = (e) => {
-    this.setState({ filter: e.target.value });
+  changeFilter = (filter) => {
+    const { tasks } = this.state;
 
-    const { tasks, filter } = this.state;
     const filtered = tasks.filter((task) =>
       task.text.toLowerCase().includes(filter.toLowerCase())
     );
 
-    this.setState({ filtered });
+    this.setState({
+      filtered,
+    });
   };
 
   addTask = (task) => {
@@ -55,7 +55,7 @@ export default class App extends Component {
     };
 
     this.setState((prevState) => ({
-      tasks: [...prevState.tasks, taskToAdd],
+      tasks: [taskToAdd, ...prevState.tasks],
     }));
   };
 
@@ -75,8 +75,8 @@ export default class App extends Component {
 
   sort = (e) => {
     let sort = e.target.name;
-    console.log(sort);
-    let sortingStart = [...this.state.tasks];
+    let tasks = this.state.tasks;
+    let sortingStart = [...this.state.filtered];
     const sorting = (sortingStart, sort) => {
       switch (sort) {
         case "nameAsc":
@@ -107,6 +107,8 @@ export default class App extends Component {
             const dateB = b.fulldate;
             return new Date(dateA) - new Date(dateB);
           });
+        case "sortClear":
+          return tasks;
         default:
           return sortingStart;
       }
@@ -114,7 +116,7 @@ export default class App extends Component {
 
     const sortingFinish = sorting(sortingStart, sort);
 
-    return this.setState({ tasks: [...sortingFinish] });
+    return this.setState({ filtered: [...sortingFinish] });
   };
 
   sortDirectionChange = (e) => {
@@ -130,22 +132,8 @@ export default class App extends Component {
     }
   };
 
-  filterTasks = (tasks, filter) => {
-    const filtered = tasks.filter((task) =>
-      task.text.toLowerCase().includes(filter.toLowerCase())
-    );
-    console.log(filtered);
-  };
-
   render() {
-    const {
-      tasks,
-      sortDirectionNameAsc,
-      sortDirectionDateAsc,
-      filter,
-    } = this.state;
-    // const filteredTasks = filterTasks(tasks, filter);
-    this.filterTasks(tasks, filter);
+    const { sortDirectionNameAsc, sortDirectionDateAsc, filtered } = this.state;
 
     return (
       <>
@@ -169,9 +157,9 @@ export default class App extends Component {
             Clear
           </button>
         </div>
-        <TaskFilter value={filter} onChangeFilter={this.changeFilter} />
+        <TaskFilter onChangeFilter={this.changeFilter} />
         <TodoList
-          tasks={tasks}
+          tasks={filtered}
           onDeleteTask={this.deleteTask}
           onUpateCompleted={this.updateCompleted}
         />
