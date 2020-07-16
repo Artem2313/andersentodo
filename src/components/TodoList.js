@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 const TodoList = ({ tasks, onUpateCompleted, onDeleteTask }) => (
   <div>
@@ -31,5 +32,11 @@ const TodoList = ({ tasks, onUpateCompleted, onDeleteTask }) => (
     </ul>
   </div>
 );
+
+TodoList.propTypes = {
+  onDeleteTask: PropTypes.func.isRequired,
+  onUpateCompleted: PropTypes.func.isRequired,
+  tasks: PropTypes.array.isRequired,
+};
 
 export default TodoList;

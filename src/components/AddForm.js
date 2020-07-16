@@ -23,7 +23,8 @@ export default class AddForm extends Component {
     if (text.trim().length === 0) {
       this.setState({ showValidationError: true });
     } else {
-      this.props.onAddTask({ text });
+      const { onAddTask } = this.props;
+      onAddTask({ text });
 
       this.setState({
         text: "",

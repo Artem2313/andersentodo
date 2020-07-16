@@ -2,6 +2,10 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 
 export default class TaskFilter extends Component {
+  static propTypes = {
+    onChangeFilter: PropTypes.func.isRequired,
+  };
+
   state = {
     filter: "",
   };
@@ -26,7 +30,3 @@ export default class TaskFilter extends Component {
     );
   }
 }
-
-TaskFilter.propTypes = {
-  onChangeFilter: PropTypes.func.isRequired,
-};

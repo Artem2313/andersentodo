@@ -4,12 +4,12 @@ import React, { Component } from "react";
 import AddForm from "./components/AddForm";
 import TodoList from "./components/TodoList";
 import TaskFilter from "./components/TaskFilter";
+import DateFilter from "./components/DateFilter";
+import SortForm from "./components/SortForm";
 
 export default class App extends Component {
   state = {
     tasks: [],
-    sortDirectionNameAsc: true,
-    sortDirectionDateAsc: true,
     filtered: [],
   };
 
@@ -31,21 +31,12 @@ export default class App extends Component {
     }
   }
 
-  changeFilter = (filter) => {
-    const { tasks } = this.state;
-
-    const filtered = tasks.filter((task) =>
-      task.text.toLowerCase().includes(filter.toLowerCase())
-    );
-
-    this.setState({
-      filtered,
-    });
-  };
-
+  // Добавление таски
   addTask = (task) => {
     const date = new Date();
-    const createdDate = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`;
+    const createdDate = `${date.getDate()}/${
+      date.getMonth() + 1
+    }/${date.getFullYear()}`;
     const taskToAdd = {
       ...task,
       id: shortid.generate(),
@@ -59,11 +50,14 @@ export default class App extends Component {
     }));
   };
 
+  // Удаление таски
   deleteTask = (id) => {
     this.setState((prevState) => ({
       tasks: prevState.tasks.filter((task) => task.id !== id),
     }));
   };
+
+  // Изменение в зависимости выполнена или нет таска
 
   updateCompleted = (id) => {
     this.setState((prevState) => ({
@@ -73,91 +67,52 @@ export default class App extends Component {
     }));
   };
 
-  sort = (e) => {
-    let sort = e.target.name;
-    let tasks = this.state.tasks;
-    let sortingStart = [...this.state.filtered];
-    const sorting = (sortingStart, sort) => {
-      switch (sort) {
-        case "nameAsc":
-          return sortingStart.slice().sort((a, b) => {
-            const nameA = a.text.toLowerCase();
-            const nameB = b.text.toLowerCase();
-            if (nameA < nameB) return -1;
-            if (nameA > nameB) return 1;
-            return 0;
-          });
-        case "nameDsc":
-          return sortingStart.slice().sort((a, b) => {
-            const nameA = a.text.toLowerCase();
-            const nameB = b.text.toLowerCase();
-            if (nameA > nameB) return -1;
-            if (nameA < nameB) return 1;
-            return 0;
-          });
-        case "dateAsc":
-          return sortingStart.slice().sort((a, b) => {
-            const dateA = a.fulldate;
-            const dateB = b.fulldate;
-            return new Date(dateB) - new Date(dateA);
-          });
-        case "dateDsc":
-          return sortingStart.slice().sort((a, b) => {
-            const dateA = a.fulldate;
-            const dateB = b.fulldate;
-            return new Date(dateA) - new Date(dateB);
-          });
-        case "sortClear":
-          return tasks;
-        default:
-          return sortingStart;
-      }
-    };
+  // Фильтрация (для фильтрации по дате использовал react-datepicker)
 
-    const sortingFinish = sorting(sortingStart, sort);
+  changeFilter = (filter) => {
+    const { tasks } = this.state;
 
-    return this.setState({ filtered: [...sortingFinish] });
+    let filtered;
+
+    if (typeof filter === "object") {
+      filtered = tasks.filter((task) => {
+        const newDateFromTask = new Date(task.fulldate);
+        const newDateFromFilter = new Date(filter);
+        const checkDateTask = `${newDateFromTask.getDate()}/${
+          newDateFromTask.getMonth() + 1
+        }/${newDateFromTask.getFullYear()}`;
+        const checkDateFilter = `${newDateFromFilter.getDate()}/${
+          newDateFromFilter.getMonth() + 1
+        }/${newDateFromFilter.getFullYear()}`;
+
+        return checkDateTask === checkDateFilter;
+      });
+    } else if (typeof filter === "string") {
+      filtered = tasks.filter((task) =>
+        task.text.toLowerCase().includes(filter.toLowerCase())
+      );
+    }
+
+    this.setState({
+      filtered,
+    });
   };
 
-  sortDirectionChange = (e) => {
-    const sort = e.target.name;
-    if (sort === "nameAsc" || sort === "nameDsc") {
-      this.setState((prevState) => ({
-        sortDirectionNameAsc: !prevState.sortDirectionNameAsc,
-      }));
-    } else if (sort === "dateAsc" || sort === "dateDsc") {
-      this.setState((prevState) => ({
-        sortDirectionDateAsc: !prevState.sortDirectionDateAsc,
-      }));
-    }
+  // Сортировка
+
+  sort = (sorted) => {
+    return this.setState({ filtered: [...sorted] });
   };
 
   render() {
-    const { sortDirectionNameAsc, sortDirectionDateAsc, filtered } = this.state;
+    const { filtered, tasks } = this.state;
 
     return (
       <>
         <AddForm onAddTask={this.addTask} />
-        <div onClick={this.sortDirectionChange}>
-          <button
-            type="button"
-            name={sortDirectionNameAsc ? "nameAsc" : "nameDsc"}
-            onClick={this.sort}
-          >
-            {sortDirectionNameAsc ? "A-Z" : "Z-A"}
-          </button>
-          <button
-            type="button"
-            name={sortDirectionDateAsc ? "dateAsc" : "dateDsc"}
-            onClick={this.sort}
-          >
-            {sortDirectionDateAsc ? "New-Old" : "Old-New"}
-          </button>
-          <button type="button" name="sortClear" onClick={this.sort}>
-            Clear
-          </button>
-        </div>
+        <SortForm filtered={filtered} tasks={tasks} onSort={this.sort} />
         <TaskFilter onChangeFilter={this.changeFilter} />
+        <DateFilter onChange={this.changeFilter} />
         <TodoList
           tasks={filtered}
           onDeleteTask={this.deleteTask}
