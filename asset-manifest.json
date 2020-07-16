@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/andersentodo/static/css/main.5f361e03.chunk.css",
+    "main.js": "/andersentodo/static/js/main.3591fbb3.chunk.js",
+    "main.js.map": "/andersentodo/static/js/main.3591fbb3.chunk.js.map",
+    "runtime-main.js": "/andersentodo/static/js/runtime-main.9da9a91a.js",
+    "runtime-main.js.map": "/andersentodo/static/js/runtime-main.9da9a91a.js.map",
+    "static/css/2.d14da900.chunk.css": "/andersentodo/static/css/2.d14da900.chunk.css",
+    "static/js/2.7bd39532.chunk.js": "/andersentodo/static/js/2.7bd39532.chunk.js",
+    "static/js/2.7bd39532.chunk.js.map": "/andersentodo/static/js/2.7bd39532.chunk.js.map",
+    "index.html": "/andersentodo/index.html",
+    "precache-manifest.55fa62e29f92e179ead64db11696c398.js": "/andersentodo/precache-manifest.55fa62e29f92e179ead64db11696c398.js",
+    "service-worker.js": "/andersentodo/service-worker.js",
+    "static/css/2.d14da900.chunk.css.map": "/andersentodo/static/css/2.d14da900.chunk.css.map",
+    "static/css/main.5f361e03.chunk.css.map": "/andersentodo/static/css/main.5f361e03.chunk.css.map",
+    "static/js/2.7bd39532.chunk.js.LICENSE.txt": "/andersentodo/static/js/2.7bd39532.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.9da9a91a.js",
+    "static/css/2.d14da900.chunk.css",
+    "static/js/2.7bd39532.chunk.js",
+    "static/css/main.5f361e03.chunk.css",
+    "static/js/main.3591fbb3.chunk.js"
+  ]
+}
