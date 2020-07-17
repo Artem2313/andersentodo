@@ -1,11 +1,11 @@
-import "./App.css";
+import styles from "./App.module.css";
 import shortid from "shortid";
 import React, { Component } from "react";
-import AddForm from "./components/AddForm";
-import TodoList from "./components/TodoList";
-import TaskFilter from "./components/TaskFilter";
-import DateFilter from "./components/DateFilter";
-import SortForm from "./components/SortForm";
+import AddForm from "./components/AddForm/AddForm";
+import TodoList from "./components/TodoList/TodoList";
+import TaskFilter from "./components/TaskFilter/TaskFilter";
+import DateFilter from "./components/DateFilter/DateFilter";
+import SortForm from "./components/SortForm/SortForm";
 
 export default class App extends Component {
   state = {
@@ -108,7 +108,8 @@ export default class App extends Component {
     const { filtered, tasks } = this.state;
 
     return (
-      <>
+      <div className={styles.mainWrapper}>
+        <h1 className={styles.title}>Todo App</h1>
         <AddForm onAddTask={this.addTask} />
         <SortForm filtered={filtered} tasks={tasks} onSort={this.sort} />
         <TaskFilter onChangeFilter={this.changeFilter} />
@@ -118,7 +119,7 @@ export default class App extends Component {
           onDeleteTask={this.deleteTask}
           onUpateCompleted={this.updateCompleted}
         />
-      </>
+      </div>
     );
   }
 }

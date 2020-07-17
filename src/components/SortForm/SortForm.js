@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import styles from "./SortForm.module.css";
 
 export default class SortForm extends Component {
   static propTypes = {
@@ -72,24 +73,34 @@ export default class SortForm extends Component {
   render() {
     const { sortDirectionNameAsc, sortDirectionDateAsc } = this.state;
     return (
-      <div onClick={this.sortDirectionChange}>
-        <button
-          type="button"
-          name={sortDirectionNameAsc ? "nameAsc" : "nameDsc"}
-          onClick={this.sort}
-        >
-          {sortDirectionNameAsc ? "A-Z" : "Z-A"}
-        </button>
-        <button
-          type="button"
-          name={sortDirectionDateAsc ? "dateAsc" : "dateDsc"}
-          onClick={this.sort}
-        >
-          {sortDirectionDateAsc ? "New-Old" : "Old-New"}
-        </button>
-        <button type="button" name="sortClear" onClick={this.sort}>
-          Clear
-        </button>
+      <div onClick={this.sortDirectionChange} className={styles.mainWrapper}>
+        <span className={styles.title}>Sort Task</span>
+        <div className={styles.btnContainer}>
+          <button
+            type="button"
+            name={sortDirectionNameAsc ? "nameAsc" : "nameDsc"}
+            onClick={this.sort}
+            className={styles.btn}
+          >
+            {sortDirectionNameAsc ? "A-Z" : "Z-A"}
+          </button>
+          <button
+            type="button"
+            name={sortDirectionDateAsc ? "dateAsc" : "dateDsc"}
+            onClick={this.sort}
+            className={styles.btn}
+          >
+            {sortDirectionDateAsc ? "New-Old" : "Old-New"}
+          </button>
+          <button
+            type="button"
+            name="sortClear"
+            onClick={this.sort}
+            className={styles.btn}
+          >
+            Clear
+          </button>
+        </div>
       </div>
     );
   }

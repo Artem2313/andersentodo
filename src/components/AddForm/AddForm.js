@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import styles from "./AddForm.module.css";
+import cx from "classnames";
 
 export default class AddForm extends Component {
   static propTypes = {
@@ -35,24 +37,29 @@ export default class AddForm extends Component {
 
   render() {
     const { text, showValidationError } = this.state;
+    const inputSwitch = showValidationError
+      ? styles.inputError
+      : styles.inputSuccess;
+    const btnSwitch = showValidationError && styles.btnError;
 
     return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
+      <div className={styles.mainWrapper}>
+        <h2 className={styles.title}>Add task</h2>
+        <form onSubmit={this.handleSubmit} className={styles.form}>
           <input
             type="text"
             name="text"
             value={text}
             onChange={this.handleChange}
-            style={{
-              borderColor: showValidationError ? "red" : "blue",
-            }}
+            className={cx(styles.input, inputSwitch)}
           />
-          <button type="submit">Add Todo</button>
-          {showValidationError && (
-            <p style={{ color: "red" }}>Please, set a task!</p>
-          )}
+          <button type="submit" className={cx(styles.btn, btnSwitch)}>
+            Add Todo
+          </button>
         </form>
+        {showValidationError && (
+          <span className={styles.spanError}>Please, set a task!</span>
+        )}
       </div>
     );
   }

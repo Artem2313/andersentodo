@@ -1,6 +1,7 @@
 import React from "react";
 import DatePicker from "react-datepicker";
 import PropTypes from "prop-types";
+import styles from "./DateFilter.module.css";
 
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -26,11 +27,17 @@ export default class DateFilter extends React.Component {
 
   render() {
     return (
-      <DatePicker
-        dateFormat="dd/MM/yyyy"
-        selected={this.state.startDate}
-        onChange={this.handleChange}
-      />
+      <div className={styles.mainWrapper}>
+        <span className={styles.title}>Sort by Date</span>
+        <div>
+          <DatePicker
+            dateFormat="dd/MM/yyyy"
+            selected={this.state.startDate}
+            onChange={this.handleChange}
+            className={styles.input}
+          />
+        </div>
+      </div>
     );
   }
 }
