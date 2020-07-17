@@ -1,0 +1,35 @@
+.mainWrapper {
+    width: 80%;
+    padding: 10px;
+    background-color: #4870ff;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.title {
+    color: #fff;
+}
+
+.btnContainer {
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.btn {
+    width: 30%;
+    background-color: #e8910d;
+    border: 1px solid #e8910d;
+    border-radius: 5%;
+    color: #fff;
+    outline: none;
+}
+
+
+
+.btn:active {
+    background-color: #fe515c;
+    border-color: #fe515c;
+}

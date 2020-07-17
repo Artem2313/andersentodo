@@ -1,0 +1,69 @@
+.mainWrapper {
+    width: 80%;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid rgb(214, 207, 207);
+    -webkit-box-shadow: 0px 6px 9px 0px rgba(201, 201, 201, 1);
+    -moz-box-shadow: 0px 6px 9px 0px rgba(201, 201, 201, 1);
+    box-shadow: 0px 6px 9px 0px rgba(201, 201, 201, 1);
+}
+
+.title {
+    width: 100%;
+    border-bottom: 1px solid rgb(214, 207, 207);
+    padding: 10px 0;
+    text-align: center;
+    -webkit-box-shadow: 0px 1px 5px 0px rgba(201, 201, 201, 1);
+    -moz-box-shadow: 0px 1px 5px 0px rgba(201, 201, 201, 1);
+    box-shadow: 0px 1px 5px 0px rgba(201, 201, 201, 1);
+}
+
+.list {
+    width: 100%;
+    list-style: none;
+    margin: 0;
+    padding-left: 0;
+}
+
+.listItem {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    border-bottom: 1px solid rgb(214, 207, 207);
+    -webkit-box-shadow: 0px 1px 5px 0px rgba(201, 201, 201, 1);
+    -moz-box-shadow: 0px 1px 5px 0px rgba(201, 201, 201, 1);
+    box-shadow: 0px 1px 5px 0px rgba(201, 201, 201, 1);
+}
+
+.listItem>div {
+    width: 25%;
+    display: flex;
+    justify-content: center;
+}
+
+.firstLine {
+    background-color: hsl(227, 100%, 64%);
+    color: #fff;
+}
+
+
+
+
+.btn {
+    width: 30%;
+    background-color: #e8910d;
+    border: 1px solid #e8910d;
+    border-radius: 3%;
+    color: #fff;
+    outline: none;
+}
+
+
+
+.btn:active {
+    background-color: #fe515c;
+    border-color: #fe515c;
+}
