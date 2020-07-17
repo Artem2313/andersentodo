@@ -1,25 +1,25 @@
 {
   "files": {
-    "main.css": "/andersentodo/static/css/main.60051003.chunk.css",
-    "main.js": "/andersentodo/static/js/main.cb96cc00.chunk.js",
-    "main.js.map": "/andersentodo/static/js/main.cb96cc00.chunk.js.map",
+    "main.css": "/andersentodo/static/css/main.e449c956.chunk.css",
+    "main.js": "/andersentodo/static/js/main.8c384ffb.chunk.js",
+    "main.js.map": "/andersentodo/static/js/main.8c384ffb.chunk.js.map",
     "runtime-main.js": "/andersentodo/static/js/runtime-main.9da9a91a.js",
     "runtime-main.js.map": "/andersentodo/static/js/runtime-main.9da9a91a.js.map",
-    "static/css/2.d14da900.chunk.css": "/andersentodo/static/css/2.d14da900.chunk.css",
-    "static/js/2.9a754413.chunk.js": "/andersentodo/static/js/2.9a754413.chunk.js",
-    "static/js/2.9a754413.chunk.js.map": "/andersentodo/static/js/2.9a754413.chunk.js.map",
+    "static/css/2.9e7ed945.chunk.css": "/andersentodo/static/css/2.9e7ed945.chunk.css",
+    "static/js/2.ca5fee4b.chunk.js": "/andersentodo/static/js/2.ca5fee4b.chunk.js",
+    "static/js/2.ca5fee4b.chunk.js.map": "/andersentodo/static/js/2.ca5fee4b.chunk.js.map",
     "index.html": "/andersentodo/index.html",
-    "precache-manifest.6faca83601ca47cdc2e81b92b73b43b8.js": "/andersentodo/precache-manifest.6faca83601ca47cdc2e81b92b73b43b8.js",
+    "precache-manifest.ff77f3962d3bdb8ebc4725da64471d96.js": "/andersentodo/precache-manifest.ff77f3962d3bdb8ebc4725da64471d96.js",
     "service-worker.js": "/andersentodo/service-worker.js",
-    "static/css/2.d14da900.chunk.css.map": "/andersentodo/static/css/2.d14da900.chunk.css.map",
-    "static/css/main.60051003.chunk.css.map": "/andersentodo/static/css/main.60051003.chunk.css.map",
-    "static/js/2.9a754413.chunk.js.LICENSE.txt": "/andersentodo/static/js/2.9a754413.chunk.js.LICENSE.txt"
+    "static/css/2.9e7ed945.chunk.css.map": "/andersentodo/static/css/2.9e7ed945.chunk.css.map",
+    "static/css/main.e449c956.chunk.css.map": "/andersentodo/static/css/main.e449c956.chunk.css.map",
+    "static/js/2.ca5fee4b.chunk.js.LICENSE.txt": "/andersentodo/static/js/2.ca5fee4b.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.9da9a91a.js",
-    "static/css/2.d14da900.chunk.css",
-    "static/js/2.9a754413.chunk.js",
-    "static/css/main.60051003.chunk.css",
-    "static/js/main.cb96cc00.chunk.js"
+    "static/css/2.9e7ed945.chunk.css",
+    "static/js/2.ca5fee4b.chunk.js",
+    "static/css/main.e449c956.chunk.css",
+    "static/js/main.8c384ffb.chunk.js"
   ]
 }
