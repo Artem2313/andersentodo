@@ -33,15 +33,16 @@ export default class App extends Component {
 
   // Добавление таски
   addTask = (task) => {
-    const date = new Date();
-    const createdDate = `${date.getDate()}/${
-      date.getMonth() + 1
-    }/${date.getFullYear()}`;
+    const fulldate = new Date(task.fulldate);
+
+    const createdDate = `${fulldate.getDate()}/${
+      fulldate.getMonth() + 1
+    }/${fulldate.getFullYear()}`;
+
     const taskToAdd = {
       ...task,
       id: shortid.generate(),
       date: createdDate,
-      fulldate: date,
       completed: false,
     };
 

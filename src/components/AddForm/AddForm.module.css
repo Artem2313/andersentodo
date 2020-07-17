@@ -51,6 +51,21 @@
   border-color: #fe515c;
 }
 
+.span {
+  color: #fff;
+}
+
 .spanError {
   color: rgb(219, 17, 17);
+}
+
+.dateContainer {
+  width: 42.5%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.dateInput {
+  outline: none;
+  border: 1px solid #e8910d;
 }

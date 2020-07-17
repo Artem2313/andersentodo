@@ -28,7 +28,7 @@ export default class DateFilter extends React.Component {
   render() {
     return (
       <div className={styles.mainWrapper}>
-        <span className={styles.title}>Sort by Date</span>
+        <span className={styles.title}>Filter by Date</span>
         <div>
           <DatePicker
             dateFormat="dd/MM/yyyy"
