@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/andersentodo/static/css/main.e449c956.chunk.css",
-    "main.js": "/andersentodo/static/js/main.8c384ffb.chunk.js",
-    "main.js.map": "/andersentodo/static/js/main.8c384ffb.chunk.js.map",
+    "main.js": "/andersentodo/static/js/main.046f8fc6.chunk.js",
+    "main.js.map": "/andersentodo/static/js/main.046f8fc6.chunk.js.map",
     "runtime-main.js": "/andersentodo/static/js/runtime-main.9da9a91a.js",
     "runtime-main.js.map": "/andersentodo/static/js/runtime-main.9da9a91a.js.map",
     "static/css/2.9e7ed945.chunk.css": "/andersentodo/static/css/2.9e7ed945.chunk.css",
     "static/js/2.ca5fee4b.chunk.js": "/andersentodo/static/js/2.ca5fee4b.chunk.js",
     "static/js/2.ca5fee4b.chunk.js.map": "/andersentodo/static/js/2.ca5fee4b.chunk.js.map",
     "index.html": "/andersentodo/index.html",
-    "precache-manifest.ff77f3962d3bdb8ebc4725da64471d96.js": "/andersentodo/precache-manifest.ff77f3962d3bdb8ebc4725da64471d96.js",
+    "precache-manifest.3825b5953c44e1afe2db1fe76677a1b6.js": "/andersentodo/precache-manifest.3825b5953c44e1afe2db1fe76677a1b6.js",
     "service-worker.js": "/andersentodo/service-worker.js",
     "static/css/2.9e7ed945.chunk.css.map": "/andersentodo/static/css/2.9e7ed945.chunk.css.map",
     "static/css/main.e449c956.chunk.css.map": "/andersentodo/static/css/main.e449c956.chunk.css.map",
@@ -20,6 +20,6 @@
     "static/css/2.9e7ed945.chunk.css",
     "static/js/2.ca5fee4b.chunk.js",
     "static/css/main.e449c956.chunk.css",
-    "static/js/main.8c384ffb.chunk.js"
+    "static/js/main.046f8fc6.chunk.js"
   ]
 }
