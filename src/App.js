@@ -11,6 +11,8 @@ export default class App extends Component {
   state = {
     tasks: [],
     filtered: [],
+    filteredByDate: null,
+    filteredByName: "",
   };
 
   componentDidMount() {
@@ -71,14 +73,30 @@ export default class App extends Component {
   // Фильтрация (для фильтрации по дате использовал react-datepicker)
 
   changeFilter = (filter) => {
-    const { tasks } = this.state;
+    const { tasks, filteredByDate, filteredByName } = this.state;
 
     let filtered;
 
     if (typeof filter === "object") {
-      filtered = tasks.filter((task) => {
+      this.setState({
+        filteredByDate: new Date(filter),
+      });
+    }
+
+    if (typeof filter === "string") {
+      this.setState({
+        filteredByName: filter,
+      });
+    }
+
+    let filterDate = typeof filter === "object" ? filter : filteredByDate;
+
+    filtered = tasks.filter((task) => {
+      if (filterDate === null) {
+        return task;
+      } else {
         const newDateFromTask = new Date(task.fulldate);
-        const newDateFromFilter = new Date(filter);
+        const newDateFromFilter = new Date(filterDate);
         const checkDateTask = `${newDateFromTask.getDate()}/${
           newDateFromTask.getMonth() + 1
         }/${newDateFromTask.getFullYear()}`;
@@ -87,12 +105,14 @@ export default class App extends Component {
         }/${newDateFromFilter.getFullYear()}`;
 
         return checkDateTask === checkDateFilter;
-      });
-    } else if (typeof filter === "string") {
-      filtered = tasks.filter((task) =>
-        task.text.toLowerCase().includes(filter.toLowerCase())
-      );
-    }
+      }
+    });
+
+    let filterName = typeof filter === "string" ? filter : filteredByName;
+
+    filtered = filtered.filter((task) =>
+      task.text.toLowerCase().includes(filterName.toLowerCase())
+    );
 
     this.setState({
       filtered,
@@ -105,15 +125,23 @@ export default class App extends Component {
     return this.setState({ filtered: [...sorted] });
   };
 
+  // Show all tasks
+
+  showAllTasks = (e) => {
+    console.log(e.target.name);
+    const { tasks } = this.state;
+    this.setState({ filtered: tasks });
+  };
+
   render() {
-    const { filtered, tasks } = this.state;
+    const { filtered, tasks, showAll } = this.state;
 
     return (
       <div className={styles.mainWrapper}>
         <h1 className={styles.title}>Todo App</h1>
         <AddForm onAddTask={this.addTask} />
         <SortForm filtered={filtered} tasks={tasks} onSort={this.sort} />
-        <TaskFilter onChangeFilter={this.changeFilter} />
+        <TaskFilter showAll={showAll} onChangeFilter={this.changeFilter} />
         <DateFilter onChange={this.changeFilter} />
         <TodoList
           tasks={filtered}

@@ -9,12 +9,21 @@ export default class SortForm extends Component {
     filtered: PropTypes.array.isRequired,
   };
 
-  state = { sortDirectionNameAsc: true, sortDirectionDateAsc: true };
+  state = {
+    sortDirectionNameAsc: true,
+    sortDirectionDateAsc: true,
+    firstFilter: null,
+  };
 
   sort = (e) => {
     let sort = e.target.name;
-    let tasks = this.props.tasks;
+    // let tasks = this.props.filtered;
     let sortingStart = [...this.props.filtered];
+    this.setState((prevState) => ({
+      firstFilter:
+        prevState.firstFilter === null ? sortingStart : prevState.firstFilter,
+    }));
+    const { firstFilter } = this.state;
     const sorting = (sortingStart, sort) => {
       switch (sort) {
         case "nameAsc":
@@ -46,7 +55,8 @@ export default class SortForm extends Component {
             return new Date(dateA) - new Date(dateB);
           });
         case "sortClear":
-          return tasks;
+          this.setState({ firstFilter: null });
+          return firstFilter === null ? sortingStart : firstFilter;
         default:
           return sortingStart;
       }

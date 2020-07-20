@@ -3,9 +3,17 @@ import PropTypes from "prop-types";
 import styles from "./TodoLis.module.css";
 import cx from "classnames";
 
-const TodoList = ({ tasks, onUpateCompleted, onDeleteTask }) => (
+const TodoList = ({ tasks, onUpateCompleted, onDeleteTask, showAllTasks }) => (
   <div className={styles.mainWrapper}>
     <h2 className={styles.title}>Hello from TodoList</h2>
+    <button
+      type="button"
+      name="showAll"
+      className={styles.btn}
+      onClick={showAllTasks}
+    >
+      Show all tasks
+    </button>
     <ul className={styles.list}>
       <li className={cx(styles.listItem, styles.firstLine)}>
         <div>
