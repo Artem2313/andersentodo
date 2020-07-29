@@ -14,7 +14,7 @@ export default class DateFilter extends React.Component {
   handleChange = (e) => {
     const date = e.target.value;
     const { onChange } = this.props;
-    onChange(date);
+    onChange(new Date(date));
     this.setState({
       date,
     });

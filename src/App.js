@@ -5,13 +5,18 @@ import TodoList from "./components/TodoList/TodoList";
 import TaskFilter from "./components/TaskFilter/TaskFilter";
 import DateFilter from "./components/DateFilter/DateFilter";
 import SortForm from "./components/SortForm/SortForm";
+import {
+  filteredByDate,
+  filteredByName,
+  sortedArray,
+} from "./components/helpers/helpers";
 
 export default class App extends Component {
   state = {
     tasks: [],
-    filtered: [],
-    filteredByDate: null,
-    filteredByName: "",
+    filterDate: "",
+    filterName: "",
+    sortBy: "",
   };
 
   componentDidMount() {
@@ -20,7 +25,7 @@ export default class App extends Component {
     if (persistedTasks) {
       const tasks = JSON.parse(persistedTasks);
 
-      this.setState({ tasks, filtered: tasks });
+      this.setState({ tasks });
     }
   }
 
@@ -28,13 +33,11 @@ export default class App extends Component {
     const { tasks } = this.state;
     if (prevState.tasks !== tasks) {
       localStorage.setItem("tasks", JSON.stringify(tasks));
-      this.setState({ filtered: tasks });
     }
   }
 
   // Добавление таски
   addTask = (task) => {
-    console.log(task);
     // Новая таска
     this.setState((prevState) => ({
       tasks: [...prevState.tasks, task],
@@ -61,71 +64,40 @@ export default class App extends Component {
   // Фильтрация (для фильтрации по дате использовал react-datepicker)
 
   changeFilter = (filter) => {
-    console.log(filter);
-    const { tasks, filteredByDate, filteredByName } = this.state;
-
-    let filtered;
-
     if (typeof filter === "object") {
       this.setState({
-        filteredByDate: new Date(filter),
+        filterDate: new Date(filter),
       });
     }
 
     if (typeof filter === "string") {
       this.setState({
-        filteredByName: filter,
+        filterName: filter,
       });
     }
-
-    let filterDate = typeof filter === "object" ? filter : filteredByDate;
-
-    filtered = tasks.filter((task) => {
-      if (filterDate === null) {
-        return task;
-      } else {
-        const newDateFromTask = new Date(task.fulldate);
-        const newDateFromFilter = new Date(filterDate);
-        const checkDateTask = `${newDateFromTask.getDate()}/${
-          newDateFromTask.getMonth() + 1
-        }/${newDateFromTask.getFullYear()}`;
-        const checkDateFilter = `${newDateFromFilter.getDate()}/${
-          newDateFromFilter.getMonth() + 1
-        }/${newDateFromFilter.getFullYear()}`;
-
-        return checkDateTask === checkDateFilter;
-      }
-    });
-
-    let filterName = typeof filter === "string" ? filter : filteredByName;
-
-    filtered = filtered.filter((task) =>
-      task.text.toLowerCase().includes(filterName.toLowerCase())
-    );
-
-    this.setState({
-      filtered,
-    });
   };
 
   // Сортировка
 
   sort = (sorted) => {
-    return this.setState({ filtered: [...sorted] });
+    return this.setState({ sortBy: sorted });
   };
 
   render() {
-    const { filtered, tasks } = this.state;
+    const { tasks, filterDate, filterName, sortBy } = this.state;
+    const filteredByDateTasks = filteredByDate(tasks, filterDate);
+    const filteredByNameTasks = filteredByName(filteredByDateTasks, filterName);
+    const sortedTasks = sortedArray(filteredByNameTasks, sortBy);
 
     return (
       <div className={styles.mainWrapper}>
         <h1 className={styles.title}>Todo App</h1>
         <AddForm onAddTask={this.addTask} />
-        <SortForm filtered={filtered} tasks={tasks} onSort={this.sort} />
+        <SortForm onSort={this.sort} />
         <TaskFilter onChangeFilter={this.changeFilter} />
         <DateFilter onChange={this.changeFilter} />
         <TodoList
-          tasks={filtered}
+          tasks={sortedTasks}
           onDeleteTask={this.deleteTask}
           onUpateCompleted={this.updateCompleted}
         />

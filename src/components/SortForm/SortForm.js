@@ -5,66 +5,18 @@ import styles from "./SortForm.module.css";
 export default class SortForm extends Component {
   static propTypes = {
     onSort: PropTypes.func.isRequired,
-    tasks: PropTypes.array.isRequired,
-    filtered: PropTypes.array.isRequired,
   };
 
   state = {
     sortDirectionNameAsc: true,
     sortDirectionDateAsc: true,
-    firstFilter: null,
   };
 
   sort = (e) => {
     let sort = e.target.name;
-    // let tasks = this.props.filtered;
-    let sortingStart = [...this.props.filtered];
-    this.setState((prevState) => ({
-      firstFilter:
-        prevState.firstFilter === null ? sortingStart : prevState.firstFilter,
-    }));
-    const { firstFilter } = this.state;
-    const sorting = (sortingStart, sort) => {
-      switch (sort) {
-        case "nameAsc":
-          return sortingStart.slice().sort((a, b) => {
-            const nameA = a.text.toLowerCase();
-            const nameB = b.text.toLowerCase();
-            if (nameA < nameB) return -1;
-            if (nameA > nameB) return 1;
-            return 0;
-          });
-        case "nameDsc":
-          return sortingStart.slice().sort((a, b) => {
-            const nameA = a.text.toLowerCase();
-            const nameB = b.text.toLowerCase();
-            if (nameA > nameB) return -1;
-            if (nameA < nameB) return 1;
-            return 0;
-          });
-        case "dateAsc":
-          return sortingStart.slice().sort((a, b) => {
-            const dateA = a.fulldate;
-            const dateB = b.fulldate;
-            return new Date(dateB) - new Date(dateA);
-          });
-        case "dateDsc":
-          return sortingStart.slice().sort((a, b) => {
-            const dateA = a.fulldate;
-            const dateB = b.fulldate;
-            return new Date(dateA) - new Date(dateB);
-          });
-        case "sortClear":
-          this.setState({ firstFilter: null });
-          return firstFilter === null ? sortingStart : firstFilter;
-        default:
-          return sortingStart;
-      }
-    };
+    const { onSort } = this.props;
 
-    const sortingFinish = sorting(sortingStart, sort);
-
-    return this.props.onSort(sortingFinish);
+    onSort(sort);
   };
 
   sortDirectionChange = (e) => {

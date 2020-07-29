@@ -15,6 +15,8 @@ export default class AddForm extends Component {
     showValidationError: "",
   };
 
+  // Данный хендл обрабатывает и дата пикер, и инпут текста
+
   handleChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
