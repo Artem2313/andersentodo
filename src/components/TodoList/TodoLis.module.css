@@ -67,3 +67,12 @@
     background-color: #fe515c;
     border-color: #fe515c;
 }
+
+.completed {
+    text-decoration: line-through;
+}
+
+
+.notCompleted {
+    text-decoration: none;
+}

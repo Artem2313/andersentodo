@@ -35,21 +35,9 @@ export default class App extends Component {
 
   // Добавление таски
   addTask = (task) => {
-    const fulldate = new Date(task.fulldate);
-
-    const createdDate = `${fulldate.getDate()}/${
-      fulldate.getMonth() + 1
-    }/${fulldate.getFullYear()}`;
-
-    const taskToAdd = {
-      ...task,
-      id: shortid.generate(),
-      date: createdDate,
-      completed: false,
-    };
-
+    // Новая таска
     this.setState((prevState) => ({
-      tasks: [taskToAdd, ...prevState.tasks],
+      tasks: [...prevState.tasks, task],
     }));
   };
 
@@ -60,7 +48,7 @@ export default class App extends Component {
     }));
   };
 
-  // Изменение в зависимости выполнена или нет таска
+  // Изменение в зависимости выполнена или нет таска.
 
   updateCompleted = (id) => {
     this.setState((prevState) => ({
@@ -125,23 +113,15 @@ export default class App extends Component {
     return this.setState({ filtered: [...sorted] });
   };
 
-  // Show all tasks
-
-  showAllTasks = (e) => {
-    console.log(e.target.name);
-    const { tasks } = this.state;
-    this.setState({ filtered: tasks });
-  };
-
   render() {
-    const { filtered, tasks, showAll } = this.state;
+    const { filtered, tasks } = this.state;
 
     return (
       <div className={styles.mainWrapper}>
         <h1 className={styles.title}>Todo App</h1>
         <AddForm onAddTask={this.addTask} />
         <SortForm filtered={filtered} tasks={tasks} onSort={this.sort} />
-        <TaskFilter showAll={showAll} onChangeFilter={this.changeFilter} />
+        <TaskFilter onChangeFilter={this.changeFilter} />
         <DateFilter onChange={this.changeFilter} />
         <TodoList
           tasks={filtered}

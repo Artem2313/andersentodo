@@ -2,9 +2,7 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import styles from "./AddForm.module.css";
 import cx from "classnames";
-import DatePicker from "react-datepicker";
-// CSS Modules, react-datepicker-cssmodules.css
-import "react-datepicker/dist/react-datepicker-cssmodules.css";
+import shortid from "shortid";
 
 export default class AddForm extends Component {
   static propTypes = {
@@ -13,50 +11,57 @@ export default class AddForm extends Component {
 
   state = {
     text: "",
-    startDate: new Date(),
-    showValidationError: false,
+    date: "",
+    showValidationError: "",
   };
 
   handleChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  handleChangeDate = (date) => {
+  handleSubmit = (e) => {
+    e.preventDefault();
+    const { text, date } = this.state;
+
+    if (date === "") {
+      this.setState({
+        showValidationError: "Please, set date",
+      });
+      return;
+    }
+
+    if (text.trim().length === 0) {
+      this.setState({
+        showValidationError: "Please, enter task",
+      });
+      return;
+    }
+
+    const task = {
+      text,
+      date,
+      completed: false,
+      id: shortid.generate(),
+    };
+
+    this.props.onAddTask(task);
+
     this.setState({
-      startDate: date,
+      text: "",
+      showValidationError: "",
+      date: "",
     });
   };
 
-  handleSubmit = (e) => {
-    e.preventDefault();
-
-    const { text, startDate } = this.state;
-
-    if (text.trim().length === 0) {
-      this.setState({ showValidationError: true });
-    } else {
-      const { onAddTask } = this.props;
-
-      const task = {
-        text,
-        fulldate: startDate,
-      };
-      onAddTask(task);
-
-      this.setState({
-        text: "",
-        showValidationError: false,
-        startDate: new Date(),
-      });
-    }
-  };
-
   render() {
-    const { text, showValidationError, startDate } = this.state;
+    const { text, showValidationError, date } = this.state;
     const inputSwitch = showValidationError
       ? styles.inputError
       : styles.inputSuccess;
     const btnSwitch = showValidationError && styles.btnError;
+
+    const textInput = cx(styles.input, inputSwitch);
+    const addBtn = cx(styles.btn, btnSwitch);
 
     return (
       <div className={styles.mainWrapper}>
@@ -68,25 +73,24 @@ export default class AddForm extends Component {
             value={text}
             onChange={this.handleChange}
             placeholder="Write task"
-            className={cx(styles.input, inputSwitch)}
+            className={textInput}
           />
-          <button type="submit" className={cx(styles.btn, btnSwitch)}>
+          <button type="submit" className={addBtn}>
             Add Todo
           </button>
         </form>
         <div className={styles.dateContainer}>
           <span className={styles.span}>Set date</span>
-          <div>
-            <DatePicker
-              dateFormat="dd/MM/yyyy"
-              selected={startDate}
-              onChange={this.handleChangeDate}
-              className={styles.dateInput}
-            />
-          </div>
+          <input
+            type="date"
+            name="date"
+            value={date}
+            onChange={this.handleChange}
+            styles={styles.dateInput}
+          />
         </div>
         {showValidationError && (
-          <span className={styles.spanError}>Please, set a task!</span>
+          <span className={styles.spanError}>{showValidationError}</span>
         )}
       </div>
     );

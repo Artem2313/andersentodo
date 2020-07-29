@@ -73,7 +73,9 @@ export default class SortForm extends Component {
       this.setState((prevState) => ({
         sortDirectionNameAsc: !prevState.sortDirectionNameAsc,
       }));
-    } else if (sort === "dateAsc" || sort === "dateDsc") {
+    }
+
+    if (sort === "dateAsc" || sort === "dateDsc") {
       this.setState((prevState) => ({
         sortDirectionDateAsc: !prevState.sortDirectionDateAsc,
       }));
@@ -82,25 +84,31 @@ export default class SortForm extends Component {
 
   render() {
     const { sortDirectionNameAsc, sortDirectionDateAsc } = this.state;
+
+    const sortName = sortDirectionNameAsc ? "nameAsc" : "nameDsc";
+    const sortDate = sortDirectionDateAsc ? "dateAsc" : "dateDsc";
+    const viewName = sortDirectionNameAsc ? "A-Z" : "Z-A";
+    const viewDate = sortDirectionDateAsc ? "New-Old" : "Old-New";
+
     return (
       <div onClick={this.sortDirectionChange} className={styles.mainWrapper}>
         <span className={styles.title}>Sort Task</span>
         <div className={styles.btnContainer}>
           <button
             type="button"
-            name={sortDirectionNameAsc ? "nameAsc" : "nameDsc"}
+            name={sortName}
             onClick={this.sort}
             className={styles.btn}
           >
-            {sortDirectionNameAsc ? "A-Z" : "Z-A"}
+            {viewName}
           </button>
           <button
             type="button"
-            name={sortDirectionDateAsc ? "dateAsc" : "dateDsc"}
+            name={sortDate}
             onClick={this.sort}
             className={styles.btn}
           >
-            {sortDirectionDateAsc ? "New-Old" : "Old-New"}
+            {viewDate}
           </button>
           <button
             type="button"
