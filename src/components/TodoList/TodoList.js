@@ -8,7 +8,7 @@ const TodoList = ({ tasks, onUpateCompleted, onDeleteTask }) => {
   const firstLine = cx(styles.listItem, styles.firstLine);
   return (
     <div className={styles.mainWrapper}>
-      <h2 className={styles.title}>Hello from TodoList</h2>      
+      <h2 className={styles.title}>Hello from TodoList</h2>
       <ul className={styles.list}>
         <li className={firstLine}>
           <div>
@@ -36,7 +36,7 @@ const TodoList = ({ tasks, onUpateCompleted, onDeleteTask }) => {
                   <p className={textDecor}>{task.text}</p>
                 </div>
                 <div>
-                  <p>{task.date}</p>
+                  <p>{task.showDate}</p>
                 </div>
                 <div>
                   <label>

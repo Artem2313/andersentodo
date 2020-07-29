@@ -39,6 +39,7 @@ export default class AddForm extends Component {
 
     const task = {
       text,
+      showDate: date.split("-").reverse().join("-"),
       date,
       completed: false,
       id: shortid.generate(),

@@ -1,5 +1,4 @@
 import styles from "./App.module.css";
-import shortid from "shortid";
 import React, { Component } from "react";
 import AddForm from "./components/AddForm/AddForm";
 import TodoList from "./components/TodoList/TodoList";
@@ -35,6 +34,7 @@ export default class App extends Component {
 
   // Добавление таски
   addTask = (task) => {
+    console.log(task);
     // Новая таска
     this.setState((prevState) => ({
       tasks: [...prevState.tasks, task],
@@ -61,6 +61,7 @@ export default class App extends Component {
   // Фильтрация (для фильтрации по дате использовал react-datepicker)
 
   changeFilter = (filter) => {
+    console.log(filter);
     const { tasks, filteredByDate, filteredByName } = this.state;
 
     let filtered;
