@@ -1,0 +1,16 @@
+.mainWrapper {
+    width: 80%;
+    padding: 10px;
+    background-color: #4870ff;
+    display: flex;
+    justify-content: space-between;
+}
+
+.title {
+    color: #fff;
+}
+
+.input {
+    outline: none;
+    border: 1px solid #e8910d;
+}
